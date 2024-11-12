@@ -1,0 +1,318 @@
+body {
+    
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+     url('/public/Images/5677332.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+  }
+/* Chat box container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack header and content vertically */
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    border-radius: 8px;
+    background-color: #ECE5DD;
+    /* Light background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 100px auto;
+}
+
+/* Header with profile image and icons */
+.chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #075E54;
+    /* White background for header */
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    /* Light border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.chat-header-friends {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+.chat-header-messages {
+    display: flex;
+    flex: 3;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+/* Profile image styling */
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Header icons */
+.chat-header-icons {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    /* Push icons to the right */
+}
+
+
+.header-icon:hover {
+    opacity: 0.7;
+}
+
+/* Main content area: chat messages and friend list */
+.chat-main {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 70vh;
+}
+
+/* Chat messages area */
+.chat-messages {
+    flex: 3;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #FFFFFF;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+.chat-messages::-webkit-scrollbar {
+    width: 8px; 
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 10px; 
+    border: 2px solid #f1f1f1;
+}
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background-color: #555; 
+}
+/* Friend list area */
+.friend-list {
+    width: 30%;
+    background-color: #f5f5f5;
+    padding: 15px;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+}
+.blusIcon
+{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    padding: 0 0 8px 0; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+.blusIcon:hover {
+    transform: scale(1.1);                              
+}
+
+.removeINputFriends
+{
+    display: block;
+    
+}
+
+/* Individual chat message */
+.chat-messages {
+    width: 70%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #DCF8C6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+}
+
+.sub-chat-message-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Message author */
+.message-author {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.message-img , .friend-img{
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.message-img:hover , .friend-img:hover  {
+    transform: scale(1.1);
+}
+
+.sub-chat-message-2 {
+    margin-top: 5px;
+    color: #555;
+}
+
+
+/* Message content */
+.message-content {
+    word-wrap: break-word;
+    font-size: 1rem;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* Friend list items */
+.friend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.friend-item > div {
+    display: flex;
+    align-items: center;
+}
+.friend-item:hover {
+    background-color: #ECE5DD;
+
+}
+.friend-list-container {
+    height: 300px; 
+    overflow-y: auto;
+    padding-right: 10px; 
+}
+.friend-list-container::-webkit-scrollbar {
+    width: 8px; 
+}
+
+/* Friend image styling */
+.friend-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+
+/*  Form styling --- Emojis and the  messages input   */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+}
+
+.message-input-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    flex: 1;
+
+}
+
+.header-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.header-icon:hover {
+    transform: scale(1.1);
+}
+
+.emoji-picker-toggle {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    outline: none;
+    transition: transform 0.2s ease;
+}
+
+.emoji-picker-toggle:hover {
+    transform: scale(1.2);
+}
+
+
+/* Position and style for input box within the container */
+.message-input-line {
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    max-width: 90%; 
+    transition: border-color 0.2s ease;
+}
+input {
+    box-sizing: border-box;
+}
+input:focus {
+    border-color: #25D366;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Style for the send button */
+
+
+.btn-rounded {
+    padding: 10px 20px;
+    margin: 5px  ;
+    border: none;
+    border-radius: 20px;
+    background-color: #25D366;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-rounded:hover {
+    background-color: #128C7E;
+    /* Darker shade on hover */
+}

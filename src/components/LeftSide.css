@@ -1,0 +1,60 @@
+/* styles.css */
+.card-container {
+    @apply bg-white rounded-xl max-w-56 ml-auto overflow-hidden shadow-sm ;
+}
+
+.profile-header {
+    @apply bg-gray-300 flex justify-center items-center h-16 relative;
+}
+
+.profile-image {
+    @apply w-20 h-20 rounded-full overflow-hidden absolute -bottom-10;
+}
+
+.profile-content {
+    @apply pt-14 pb-2 px-2 text-center;
+}
+
+.profile-name {
+    @apply text-xl font-bold;
+}
+
+.profile-text {
+    @apply text-base text-gray-600;
+}
+
+.profile-button {
+    @apply w-full text-sm text-gray-900 font-semibold mb-2  border border-gray-300 rounded-md hover:bg-gray-100 transition-colors;
+}
+
+.list-iteem {
+    @apply flex  cursor-pointer p-1 hover:bg-gray-100 rounded-md;
+}
+
+.list-icon {
+    @apply  text-gray-600;
+}
+
+.list-text {
+    @apply text-xs font-medium ml-2;
+}
+
+.connection-item {
+    @apply flex justify-around;
+}
+
+.connection-text {
+    @apply text-xs font-medium cursor-pointer;
+}
+
+.connection-count {
+    @apply text-blue-600 text-sm font-bold;
+}
+
+.premium-text {
+    @apply text-gray-600 text-xs font-normal;
+}
+
+.premium-link {
+    @apply text-xs font-medium cursor-pointer;
+}

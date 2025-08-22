@@ -1,0 +1,35 @@
+/* styles.css */
+.circular-image {
+    @apply w-14 h-14 mx-3 rounded-full overflow-hidden border-2 border-white;
+}
+
+.icon-button {
+    @apply flex items-center cursor-pointer text-gray-600 hover:text-blue-500;
+}
+
+.card-container-timeline {
+    @apply bg-white rounded-xl p-5  mb-3 max-w-full mx-auto overflow-hidden shadow-sm;
+}
+
+/* Ensure the expanded div covers the entire screen */
+.expanded-div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure it's above everything else */
+}
+
+/* Ensure the overlay covers the entire screen */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 999; /* Ensure it's below the expanded div */
+}

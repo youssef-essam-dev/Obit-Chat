@@ -1,0 +1,23 @@
+.icon-size {
+    width: 25px;
+    height: 25px;
+  }
+
+  ul li {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Hover effect */
+  ul li:hover {
+    background-color: #f0f0f0; 
+    transform: scale(1.05); 
+  }
+  
+  /* Styling for icons on hover */
+  ul li:hover .icon-size {
+    color: #007bff; 
+    transition: color 0.3s ease;
+  }

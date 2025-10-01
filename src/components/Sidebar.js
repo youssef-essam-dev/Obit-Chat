@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { HomeIcon, UserIcon, CogIcon, MailIcon, QuestionMarkCircleIcon, LogoutIcon, ChatIcon } from '@heroicons/react/solid';
 import './Sidebar.css'
-export const Sidebar = () => {
+ const Sidebar = () => {
     /* const [menuOpen, setMenuOpen] = useState(false); */
 
     return (
@@ -56,6 +56,7 @@ export const Sidebar = () => {
 
     );
 };
+export default Sidebar;
 
 /*   <div className="w-64 font-bold  bg-gradient-to-r from-lightTransparent via-lightTransparent to-lightTransparent backdrop-blur-md text-black">
             { //Desktop Sidebar }

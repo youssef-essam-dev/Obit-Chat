@@ -1,6 +1,14 @@
 import React from "react";
 import './LeftSide.css'
-export const LeftSide = () => {
+const LeftSide = () => {
+
+    const listItems = [
+        { icon: "fa-bookmark", text: "Saved items" },
+        { icon: "fa-layer-group", text: "Groups" },
+        { icon: "fa-envelope", text: "Newsletters" },
+        { icon: "fa-calendar", text: "Events" },
+    ];
+
     return (
         <div>
             {/* Profile Card */}
@@ -48,23 +56,14 @@ export const LeftSide = () => {
 
             {/* List Card */}
             <div className="card-container mt-2 p-2">
-                <div className="list-iteem">
-                    <i className="fa-solid fa-bookmark list-icon"></i>
-                    <p className="list-text">Saved items</p>
-                </div>
-                <div className="list-iteem">
-                    <i className="fa-solid fa-layer-group list-icon"></i>
-                    <p className="list-text">Groups</p>
-                </div>
-                <div className="list-iteem">
-                    <i className=" fa-solid fa-envelope list-icon"></i>
-                    <p className="list-text">Newsletters</p>
-                </div>
-                <div className="list-iteem">
-                    <i className="fa-solid fa-calendar list-icon"></i>
-                    <p className="list-text">Events</p>
-                </div>
+                {listItems.map((item, index) => (
+                    <div key={index} className="list-iteem">
+                        <i className={`fa-solid ${item.icon} list-icon`} aria-hidden="true"></i>
+                        <p className="list-text">{item.text}</p>
+                    </div>
+                ))}
             </div>
         </div>
     );
 };
+export default LeftSide;

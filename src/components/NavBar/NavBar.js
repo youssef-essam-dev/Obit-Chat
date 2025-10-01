@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { SearchData } from './SearchData';
-const Navbar = () => {
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { SearchData } from '../Messaging/SearchData';
+import MobileMenu from './MobileMenu';
+const Navbar = ({ setActiveView }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [search, setSearch] = useState(SearchData);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility
     const [searchTerm, setSearchTerm] = useState('');
     const inputRef = useRef(null); // Ref for the input
     const dropdownRef = useRef(null); // Ref for the dropdown
+    const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -28,12 +29,55 @@ const Navbar = () => {
     }, []);
 
 
-    const filteredResults = () => {
-        const filteredData = SearchData.filter(item =>
+    const filteredResults = useMemo(() => {
+        if (!searchTerm.trim()) return [];
+        return SearchData.filter(item =>
             item.toLowerCase().includes(searchTerm.toLowerCase())
         );
-        return filteredData;
-    }
+    }, [searchTerm]);
+
+    const handleKeyDown = (e) => {
+        if (!isDropdownOpen) return;
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            setHighlightedIndex(prev =>
+                prev < filteredResults.length - 1 ? prev + 1 : 0
+            );
+        }
+
+        if (e.key === "ArrowUp") {
+            e.preventDefault();
+            setHighlightedIndex(prev =>
+                prev > 0 ? prev - 1 : filteredResults.length - 1
+            );
+        }
+
+        if (e.key === "Enter") {
+            e.preventDefault();
+            if (highlightedIndex >= 0) {
+                setSearchTerm(filteredResults[highlightedIndex]);
+                setIsDropdownOpen(false);
+                setHighlightedIndex(-1);
+            }
+        }
+
+        if (e.key === "Escape") {
+            setIsDropdownOpen(false);
+            setHighlightedIndex(-1);
+        }
+    };
+
+    const menuItems = [
+        { icon: "fa-solid fa-house", label: "Home", view: "timeline" },
+        { icon: "fa-solid fa-network-wired", label: "My Network", view: "network" },
+        { icon: "fa-solid fa-briefcase", label: "Jobs", view: "jobs" },
+        { icon: "fa-brands fa-rocketchat", label: "Messaging", view: "messaging" },
+        { icon: "fa-solid fa-bell", label: "Notifications" },
+        { icon: "fa-solid fa-user", label: "Me" }
+    ];
+
+
 
     return (
         <nav className="bg-white shadow-md  ">
@@ -53,14 +97,21 @@ const Navbar = () => {
                                 onChange={(e) => {
                                     setSearchTerm(e.target.value); // Update search term
                                     setIsDropdownOpen(true); // Show dropdown when typing
+                                    setHighlightedIndex(-1);
                                 }}
+                                onKeyDown={handleKeyDown}
                                 ref={inputRef} // Attach ref to the input
                             />
                             {isDropdownOpen && (
                                 <div ref={dropdownRef} className="absolute bg-white rounded-lg w-full mt-2 overflow-hidden shadow-lg z-50">
                                     <ul className="list-none px-2 m-1 d-">
-                                        {filteredResults().map((item, index) =>
-                                            <li key={index} className="cursor-pointer p-2 hover:bg-gray-100 w-full ">
+                                        {filteredResults.map((item, index) =>
+                                            <li key={index} onClick={() => {
+                                                setSearchTerm(item); 
+                                                setIsDropdownOpen(false);
+                                                setHighlightedIndex(-1);
+                                            }} className={`cursor-pointer p-2 w-full ${highlightedIndex === index ? "bg-gray-200" : "hover:bg-gray-100"
+                                                }`}>
                                                 {item}
                                             </li>
                                         )}
@@ -68,59 +119,35 @@ const Navbar = () => {
                                 </div>
                             )}
                         </div>
-
                     </div>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex space-x-1  items-center  ">
-                        <div className="">
-                            <a href="/" className="flex flex-col items-center px-2 py-2 text-lg no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i className="fa-solid fa-house mb-1"></i>
-                                <span className='text-xs'>Home</span>
-                            </a>
-                        </div>    <div className="">
-                            <a href="/" className="flex flex-col items-center px-2 py-2  text-lg  no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i className="fa-solid fa-network-wired mb-1"></i>
-                                <span className='text-xs'> My Network</span>
-                            </a>
-                        </div>
-                        <div className="">
-                            <a href="/" className="flex flex-col items-center px-2 py-2  text-lg  no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i className="fa-solid fa-briefcase mb-1"></i>
-                                <span className='text-xs'>Jobs</span>
-                            </a>
-                        </div>
-                        <div className="">
-                            <a href="/" className="flex flex-col items-center px-2 py-2  text-lg no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i className="fa-brands fa-rocketchat mb-1"></i>
-                                <span className='text-xs'>Messaging</span>
-                            </a>
-                        </div>
-                        <div className="">
-                            <a href="/" className="flex flex-col items-center px-2 py-2  text-lg  no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i className="fa-solid fa-bell mb-1"></i>
-                                <span className='text-xs'>Notifications</span>
-                            </a>
-                        </div>
-                        <div className="">
-                            <a href="/" className="flex flex-col items-center px-2 py-2  text-lg  no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i className="fa-solid fa-user mb-1"></i>
-                                <span className='text-xs'>Me <i class="fa-solid fa-angle-down"></i></span>
-                            </a>
-                        </div>
+                    <div className="hidden md:flex space-x-1 items-center">
+                        {menuItems.map((item, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setActiveView(item.view)}
+                                className="flex flex-col items-center px-2 py-2 text-lg no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300 bg-transparent border-none"
+                                aria-label={item.label} 
+                            >
+                                <i className={item.icon}></i>
+                                <span className="text-xs">{item.label}</span>
+                            </button>
+                        ))}
 
                     </div>
+
                     <div className="hidden md:flex space-x-1  items-center  ">
                         <div className="">
                             <a href="/" className="flex flex-col items-center px-2 py-2  text-lg  no-underline text-gray-950 hover:text-gray-600 transition-colors duration-300">
-                                <i class="fa-solid fa-braille"></i>
+                                <i class="fa-solid fa-braille" aria-label="Business"></i>
                                 <span className='text-xs '>For Business <i class="fa-solid fa-angle-down"></i></span>
                             </a>
                         </div>
                         <div className="">
                             <a href="/" className="flex flex-col items-center px-2 py-2  text-lg  no-underline   ">
-                            <i class="fa-solid fa-folder text-yellow-500"></i>
-                            
+                                <i class="fa-solid fa-folder text-yellow-500" aria-label="premium" ></i>
+
                                 <span className='text-xs text-gray-950 hover:text-gray-600'>Try premium for EGP0 </span>
                             </a>
                         </div>
@@ -163,22 +190,7 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="md:hidden">
-                    <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                        <a href="/" className="block text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-                            Home
-                        </a>
-                        <a href="/about" className="block text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-                            About
-                        </a>
-                        <a href="/services" className="block text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-                            Services
-                        </a>
-                        <a href="/contact" className="block text-gray-800 hover:text-blue-500 px-3 py-2 rounded-md text-base font-medium">
-                            Contact
-                        </a>
-                    </div>
-                </div>
+                <MobileMenu />
             )}
         </nav>
     );

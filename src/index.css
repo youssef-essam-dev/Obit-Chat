@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .btn-reset {
+    @apply bg-transparent border-none p-0 m-0  text-inherit cursor-pointer;
+  }
+}

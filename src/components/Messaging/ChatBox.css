@@ -1,15 +1,18 @@
-
+  /*
     body {
         
         background:#F3F2EF;
         background-size: cover;
         background-position: center;
-       //background-repeat: no-repeat;
-     //background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-        //url('/public/Images/5677332.jpg');
+      
+         background-repeat: no-repeat;
+       background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        url('/public/Images/5677332.jpg');
+        
+      
     }
 
-    
+     */
 
     /* Chat box container */
     .chat-container {

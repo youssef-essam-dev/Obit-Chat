@@ -8,8 +8,10 @@
 }
 
 .card-container-timeline {
-    @apply bg-white rounded-xl p-5  mb-3 max-w-full mx-auto overflow-hidden shadow-sm;
+    @apply bg-white rounded-xl p-5  mb-3 max-w-full mx-auto overflow-hidden shadow-md;
 }
+
+
 
 /* Ensure the expanded div covers the entire screen */
 .expanded-div {

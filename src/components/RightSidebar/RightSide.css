@@ -1,5 +1,5 @@
 .card-container-rightside {
-    @apply bg-white rounded-xl p-5 max-w-full mx-auto overflow-hidden shadow-sm;
+    @apply bg-white rounded-xl p-5 max-w-full mx-auto overflow-hidden shadow-md;
 }
 .list-iteem-righside {
     @apply   cursor-pointer my-2 p-1 hover:bg-gray-100 rounded-md;

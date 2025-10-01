@@ -4,22 +4,18 @@ import './TimeLine.css'
 import { PostData } from './PostData';
 import { Post } from './Post';
 
-// ProgressBar Component
-export const ProgressBar = (percentage) => {
-  return (
-    <div>
 
-    </div>
-  )
-}
+// ProgressBar Component
+
 // Circular Image Component
-export const CircularImage = ({ src, alt }) => (
+const CircularImage = ({ src, alt }) => (
   <div className="circular-image">
     <img src={src} alt={alt} className="w-full h-full object-cover" />
   </div>
 );
-export const TimeLine = () => {
-  const [percentage, setPercentage] = useState(75);
+const TimeLine = () => {
+
+  const inputRef = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false); // State to manage expansion
   const [postData, setPostData] = useState(PostData)
   const [postForm, setPostForm] = useState({
@@ -40,18 +36,31 @@ export const TimeLine = () => {
     if (!postForm.content.trim()) return;
     const newPost = {
       content: postForm.content,
-      
-        name: "Youssef Essam", // Replace with actual user name
-        subtitle: "Post to anyone", // Replace with actual user subtitle
-        date: new Date().toLocaleDateString() // Current date
-     
+
+      name: "Youssef Essam",
+      subtitle: "Post to anyone",
+      date: new Date().toLocaleDateString() // Current date
+
       , id: Date.now()
     };
     addPost(newPost)
 
-    setPostForm({ content: '' });
+    setPostForm({ ...postForm, content: '' });
     setIsExpanded(false);  //  Closes the post box after submission
   }
+
+
+  useEffect(() => {
+    if (isExpanded && inputRef.current) {
+      inputRef.current.focus(); // Focus the textarea when expanded
+    }
+  }, [isExpanded]);
+
+  const renderedPosts = useMemo(() =>
+    postData.map(post => <Post key={post.id} post={post} />),
+    [postData]
+  );
+
 
   return (
     <div>
@@ -59,20 +68,8 @@ export const TimeLine = () => {
       <div className="card-container-timeline ">
         <p className="text-2xl font-bold m-0 flex justify-between items-center">
           <span>Prepare for your job search</span>
-          <i className="fa-solid fa-xmark cursor-pointer"></i>
+          <i className="fa-solid fa-xmark cursor-pointer" aria-label="Close" ></i>
         </p>
-        <ProgressBar percentage={percentage} />
-
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={percentage}
-          onChange={(e) => setPercentage(e.target.value)}
-          className="w-full"
-        />
-        <p className="text-xs text-gray-600">{percentage}% complete</p>
-
         <div>
           <img
             className="max-w-full rounded-2xl p-2"
@@ -115,7 +112,9 @@ export const TimeLine = () => {
         )}
 
         {isExpanded && (
-          <div className="fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-white rounded-lg shadow-lg z-[1000]">
+          <div className="fixed top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-1/2 bg-white rounded-lg shadow-lg z-[1000]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className='flex justify-between px-4 py-2 border-b border-gray-200'>
               <div className='flex cursor-pointer p-2 hover:bg-gray-100 rounded-lg'>
                 <div className='circular-image'>
@@ -131,7 +130,7 @@ export const TimeLine = () => {
                 className="cursor-pointer  "
                 onClick={() => setIsExpanded(false)} // Close on clicking X
               >
-                <i className="fa-solid fa-xmark text-xl p-2  hover:bg-gray-100 rounded-full text-gray-600"></i>
+                <i className="fa-solid fa-xmark text-xl p-2  hover:bg-gray-100 rounded-full text-gray-600" aria-label="Close" ></i>
               </div>
             </div>
 
@@ -139,28 +138,34 @@ export const TimeLine = () => {
             <div className='card-container-timeline '>
               <form id='postForm' onSubmit={handelSubmit}>
                 <textarea
+                  ref={inputRef}
                   className='w-full py-2 px-4 outline-none resize-none border-none'
                   rows={6}
                   placeholder='What do you want to talk about?'
                   value={postForm.content}
                   onChange={(e) => {
                     if (e.target.value.length <= 500) { // Limit to 500 characters
-                      setPostForm({ content: e.target.value });
+                      setPostForm(prev => ({ ...prev, content: e.target.value }));
                     }
                   }}
                 />
 
                 <div>
                   <p className="text-sm text-gray-500 text-right px-4">
-                    {postForm.content.length}/500
+                    {postForm.content?.length || 0}/500
                   </p>
                 </div>
                 <div >
                   <div className="flex px-4">
-                    <i className="fa-regular fa-face-smile-beam cursor-pointer text-gray-600 text-xl px-3 py-1 m-1 hover:bg-gray-100 rounded-full"></i>
-                    <i className="fa-solid fa-image cursor-pointer text-gray-600 text-xl px-3 m-1 hover:bg-gray-100 rounded-full"></i>
-                    <i className="fa-solid fa-calendar-day cursor-pointer text-gray-600 text-xl px-3 m-1 hover:bg-gray-100 rounded-full"></i>
-                    <i className="fa-solid fa-plus text-xl cursor-pointer text-gray-600 px-3 m-1 hover:bg-gray-100 rounded-full"></i>
+                    <i className="fa-regular fa-face-smile-beam cursor-pointer text-gray-600 text-xl px-3 py-1 m-1 hover:bg-gray-100 rounded-full"
+                      aria-label="emoje"
+                    ></i>
+                    <i className="fa-solid fa-image cursor-pointer text-gray-600 text-xl px-3 m-1 hover:bg-gray-100 rounded-full"
+                      aria-label="images"></i>
+                    <i className="fa-solid fa-calendar-day cursor-pointer text-gray-600 text-xl px-3 m-1 hover:bg-gray-100 rounded-full"
+                      aria-label="calendar"></i>
+                    <i className="fa-solid fa-plus text-xl cursor-pointer text-gray-600 px-3 m-1 hover:bg-gray-100 rounded-full"
+                      aria-label="files"></i>
                   </div>
 
                   <div>
@@ -200,19 +205,22 @@ export const TimeLine = () => {
           <div className="flex items-center cursor-pointer  text-gray-600 hover:text-blue-500"
             onClick={() => alert("Photo clicked!")}
           >
-            <i className="fa-solid fa-photo-film"></i>
+            <i className="fa-solid fa-photo-film"
+             aria-label="photo"></i>
             <p className="ml-2 font-medium">Photo</p>
           </div>
           <div className="flex items-center cursor-pointer text-gray-600 hover:text-blue-500"
             onClick={() => alert("Event clicked!")}
           >
-            <i className="fa-solid fa-calendar"></i>
+            <i className="fa-solid fa-calendar"
+             aria-label="calendar"></i>
             <p className="ml-2 font-medium">Event</p>
           </div>
           <div className="flex items-center cursor-pointer text-gray-600 hover:text-blue-500"
             onClick={() => alert("Article clicked!")}
           >
-            <i className="fa-solid fa-newspaper"></i>
+            <i className="fa-solid fa-newspaper"
+             aria-label="article"></i>
             <p className="ml-2 font-medium">Article</p>
           </div>
         </div>
@@ -220,10 +228,8 @@ export const TimeLine = () => {
       </div>
 
       {/* Post Card */}
+      {renderedPosts}
 
-      {postData.map((post, index) => (
-        <Post key={post.id} post={post} />
-      ))}
 
       {/* Post Card 
       <div className="card-container-timeline ">
@@ -304,3 +310,6 @@ export const TimeLine = () => {
 
   )
 }
+export default TimeLine;
+
+export { CircularImage };

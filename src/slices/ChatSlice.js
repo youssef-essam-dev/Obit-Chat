@@ -8,23 +8,23 @@ export const fetchCommentsApi = createAsyncThunk('chatSlice/fetchCommentsApi', a
         id: comment.id,
         author: comment.email.split('@')[0], // Simulate an author from email
         content: comment.body,
-        timestamp: new Date().toISOString(), 
-    })); 
+        timestamp: new Date().toISOString(),
+    }));
 });
 
 
-export const fetchUsersApi = createAsyncThunk( 'chatSlice/fetchUsersApi' , async () => {
-        const response = await fetch("https://jsonplaceholder.typicode.com/users");
-        const data = await response.json();
-        const limitedData = data.slice(0, 10);
-        return limitedData.map(user => ({
-            id: user.id,
-            name: user.name,
-            image: 'default-image-url', // Placeholder for user images
-        }));
-    });
+export const fetchUsersApi = createAsyncThunk('chatSlice/fetchUsersApi', async () => {
+    const response = await fetch("https://jsonplaceholder.typicode.com/users");
+    const data = await response.json();
+    const limitedData = data.slice(0, 10);
+    return limitedData.map(user => ({
+        id: user.id,
+        name: user.name,
+        image: `/Images/07daf287389c4d4dd422c3aa920e9c98.jpg`, 
+    }));
+});
 
-const chatSlice = createSlice({
+const chatSlice = createSlice({ 
     name: 'chatSlice',
     initialState: {
         messages: JSON.parse(localStorage.getItem("messages")) || [],

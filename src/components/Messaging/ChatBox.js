@@ -1,7 +1,7 @@
     import React, { useEffect, useState, useRef , useMemo } from 'react';
     import { useSelector, useDispatch } from 'react-redux';
     import './ChatBox.css'; // Import the CSS file
-    import { addMessage, deleteMessage, friendsSearch, clearMessages, addFriends, clearFriends, deleteFriend ,fetchCommentsApi , fetchUsersApi} from '../slices/ChatSlice';
+    import { addMessage, deleteMessage, friendsSearch, clearMessages, addFriends, clearFriends, deleteFriend ,fetchCommentsApi , fetchUsersApi} from '../../slices/ChatSlice';
     import Picker from '@emoji-mart/react';
 
 
@@ -157,7 +157,7 @@
                 {/* Header with profile image and icons */}
                 <div className="chat-header">
                     <div className="chat-header-friends">
-                        <img src="/Images/fluent-emoji--person.svg" className="profile-image" />
+                        
                         <div className="chat-header-icons">
                             <img src="/Images/flat-color-icons--search.svg" className="header-icon" />
                             <img src="/Images/icons8-menu-vertical-100.png" className="header-icon" />

@@ -1,6 +1,6 @@
 /* styles.css */
 .card-container {
-    @apply bg-white rounded-xl max-w-56 ml-auto overflow-hidden shadow-sm ;
+    @apply bg-white rounded-xl max-w-56 ml-auto overflow-hidden shadow-md ;
 }
 
 .profile-header {
